@@ -1,0 +1,13 @@
+[Unit]
+Description=DHT22 Sensor MQTT Client
+After=multi-user.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/pi/rpi-dht22-mqtt-client/
+ExecStart=/usr/bin/python3 /home/pi/rpi-dht22-mqtt-client/dht22_publisher.py
+User=pi
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
