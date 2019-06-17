@@ -1,0 +1,13 @@
+[main]
+dht22_pin = 4
+sleep_interval = 60
+
+[mqtt]
+; Mandatory
+endpoint = your-personal.iot.eu-central-1.amazonaws.com
+client_id = rpi_sensor
+cert_path = 123-certificate.pem.crt
+key_path = 123-private.pem.key
+topic = room/data
+; Optional
+port = 8883
