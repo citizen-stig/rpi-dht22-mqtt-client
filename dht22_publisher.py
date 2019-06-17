@@ -15,14 +15,16 @@ import Adafruit_DHT
 import paho.mqtt.client as mqtt
 
 log_level = 'DEBUG'
-log_format = '%(asctime)s %(levelname)s %(filename)s:%(lineno)d - %(funcName)s: %(message)s'
 
 logging_configuration = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'standard': {
-            'format': log_format,
+            'format': '%(asctime)s %(levelname)s %(filename)s:%(lineno)d - %(funcName)s: %(message)s',
+        },
+        'short': {
+            'format': '%(filename)s:%(lineno)d - %(funcName)s: %(message)s',
         },
     },
     'handlers': {
@@ -35,7 +37,7 @@ logging_configuration = {
             'level': log_level,
             'class': 'logging.handlers.SysLogHandler',
             'address': '/dev/log',
-            'formatter': 'standard',
+            'formatter': 'short',
         },
 
     },
@@ -114,7 +116,9 @@ def main():
 
     while True:
         timestamp, humidity, temperature = get_humidity_and_temperature(pin)
-        logger.debug("Data from DHT Sensor: %s, %s, %s", timestamp, humidity, temperature)
+        humidity = round(humidity, 3)
+        temperature = round(temperature, 3)
+        logger.debug("Data from DHT Sensor: %s, humitidity=%s, temperature=%s", timestamp, humidity, temperature)
         data = {
             'timestamp': timestamp.strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
             'location': location,

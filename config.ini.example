@@ -1,6 +1,7 @@
 [main]
 dht22_pin = 4
 sleep_interval = 60
+location = living_room
 
 [mqtt]
 ; Mandatory
